@@ -285,7 +285,9 @@ static inline void DAP_CONFIG_CONNECT_SWD(void)
   digitalWrite(DAP_CONFIG_SWDIO_PIN, HIGH);
 
   pinMode(DAP_CONFIG_SWCLK_PIN, OUTPUT);
-  digitalWrite(DAP_CONFIG_SWCLK_PIN, HIGH);
+  // Secured SAMD needs reset cold-plug sequence (SWCLK kept low when nRESET is deasserted)
+  digitalWrite(DAP_CONFIG_SWCLK_PIN, LOW);	
+  digitalWrite(DAP_CONFIG_nRESET_PIN, LOW);
 
   pinMode(DAP_CONFIG_nRESET_PIN, OUTPUT);
   for(int i=0; i<1000000ul; i++){
